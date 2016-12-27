@@ -50,7 +50,7 @@ public class SimpleCachingBiEvaluator implements BiEvaluator, Serializable {
         }
 
         final R result = delegate.evaluate(function, arg1, arg2);
-        LOG.debug("Calculated result for [{}] with [{}, {}] and cached: [{}]",
+        LOG.debug("Cached evaluation result of [{}] with [{}, {}]: [{}]",
                 function, arg1, arg2, result);
         resultCache.put(key, result);
         return result;

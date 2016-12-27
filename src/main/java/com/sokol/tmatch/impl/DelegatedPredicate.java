@@ -45,4 +45,9 @@ public class DelegatedPredicate<T> implements Predicate<T>, Serializable {
     public String toString() {
         return toString;
     }
+
+    public static <T> DelegatedPredicate<T> of(final Predicate<T> delegate,
+            final String toString) {
+        return new DelegatedPredicate<>(delegate, toString);
+    }
 }

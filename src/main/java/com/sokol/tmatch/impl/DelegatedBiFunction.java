@@ -48,4 +48,9 @@ public class DelegatedBiFunction<T, U, R>
     public String toString() {
         return toString;
     }
+
+    public static <T, U, R> DelegatedBiFunction<T, U, R>
+            of(final BiFunction<T, U, R> delegate, final String toString) {
+        return new DelegatedBiFunction<>(delegate, toString);
+    }
 }

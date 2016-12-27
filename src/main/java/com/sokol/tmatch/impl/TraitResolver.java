@@ -40,31 +40,38 @@ public class TraitResolver<T, U extends Comparable<U>, R>
                 object, evaluator, biEvaluator), traits);
     }
 
-    public static <T, U extends Comparable<U>, R> TraitResolver<T, U, R> withInlineEvaluators(
-            final BiFunction<? super TraitEvaluationContext<T>, ? super Collection<? extends Trait<T, U>>, ? extends R> traitsEvaluator) {
-        return new TraitResolver<>(getInlineEvaluatorFactory(),
+    public static <T, U extends Comparable<U>, R> TraitResolver<T, U, R>
+            withInlineEvaluators(
+                    final BiFunction<? super TraitEvaluationContext<T>, ? super Collection<? extends Trait<T, U>>, ? extends R> traitsEvaluator) {
+        return new TraitResolver<T, U, R>(getInlineEvaluatorFactory(),
                 getInlineBiEvaluatorFactory(), traitsEvaluator);
     }
 
-    public static <T, U extends Comparable<U>, R> TraitResolver<T, U, R> withInlineEvaluator(
-            final BiFunction<? super TraitEvaluationContext<T>, ? super Collection<? extends Trait<T, U>>, ? extends R> traitsEvaluator,
-            final BiFunction<? super T, ? super Collection<? extends Trait<T, U>>, ? extends BiEvaluator> biEvaluatorFactory) {
-        return new TraitResolver<>(getInlineEvaluatorFactory(),
+    public static <T, U extends Comparable<U>, R> TraitResolver<T, U, R>
+            withInlineEvaluator(
+                    final BiFunction<? super TraitEvaluationContext<T>, ? super Collection<? extends Trait<T, U>>, ? extends R> traitsEvaluator,
+                    final BiFunction<? super T, ? super Collection<? extends Trait<T, U>>, ? extends BiEvaluator> biEvaluatorFactory) {
+        return new TraitResolver<T, U, R>(getInlineEvaluatorFactory(),
                 biEvaluatorFactory, traitsEvaluator);
     }
 
-    public static <T, U extends Comparable<U>, R> TraitResolver<T, U, R> withInlineBiEvaluator(
-            final BiFunction<? super TraitEvaluationContext<T>, ? super Collection<? extends Trait<T, U>>, ? extends R> traitsEvaluator,
-            final BiFunction<? super T, ? super Collection<? extends Trait<T, U>>, ? extends Evaluator> evaluatorFactory) {
-        return new TraitResolver<>(evaluatorFactory,
+    public static <T, U extends Comparable<U>, R> TraitResolver<T, U, R>
+            withInlineBiEvaluator(
+                    final BiFunction<? super TraitEvaluationContext<T>, ? super Collection<? extends Trait<T, U>>, ? extends R> traitsEvaluator,
+                    final BiFunction<? super T, ? super Collection<? extends Trait<T, U>>, ? extends Evaluator> evaluatorFactory) {
+        return new TraitResolver<T, U, R>(evaluatorFactory,
                 getInlineBiEvaluatorFactory(), traitsEvaluator);
     }
 
-    private static <T, U extends Comparable<U>> BiFunction<? super T, ? super Collection<? extends Trait<T, U>>, ? extends Evaluator> getInlineEvaluatorFactory() {
+    private static <T, U extends Comparable<U>>
+            BiFunction<? super T, ? super Collection<? extends Trait<T, U>>, ? extends Evaluator>
+            getInlineEvaluatorFactory() {
         return (x, y) -> InlineEvaluator.INSTANCE;
     }
 
-    private static <T, U extends Comparable<U>> BiFunction<? super T, ? super Collection<? extends Trait<T, U>>, ? extends BiEvaluator> getInlineBiEvaluatorFactory() {
+    private static <T, U extends Comparable<U>>
+            BiFunction<? super T, ? super Collection<? extends Trait<T, U>>, ? extends BiEvaluator>
+            getInlineBiEvaluatorFactory() {
         return (x, y) -> InlineBiEvaluator.INSTANCE;
     }
 }

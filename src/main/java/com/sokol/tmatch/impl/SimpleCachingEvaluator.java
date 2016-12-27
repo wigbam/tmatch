@@ -50,8 +50,8 @@ public class SimpleCachingEvaluator implements Evaluator, Serializable {
         }
 
         final R result = delegate.evaluate(function, arg);
-        LOG.debug("Calculated result for [{}] with {}] and cached: [{}]",
-                function, arg, result);
+        LOG.debug("Cached evaluation result of [{}] with [{}]: [{}]", function,
+                arg, result);
         resultCache.put(key, result);
         return result;
     }

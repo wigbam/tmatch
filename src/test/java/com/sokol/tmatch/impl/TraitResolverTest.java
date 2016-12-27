@@ -2,7 +2,7 @@ package com.sokol.tmatch.impl;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Optional;
+import java.util.Comparator;
 import java.util.function.BiFunction;
 
 import org.hamcrest.Matchers;
@@ -41,14 +41,13 @@ public class TraitResolverTest {
 
     @Test
     public void testSingleMismatch() {
-        final BiFunction<TraitEvaluationContext<String>, Trait<String, Double>, Optional<Double>> sumEvaluator = TraitResolverUtil
+        final BiFunction<TraitEvaluationContext<String>, Trait<String, Double>, Double> sumEvaluator = TraitResolverUtil
                 .getSummarizingDoubleTraitEvaluator();
         final BiFunction<TraitEvaluationContext<String>, Collection<? extends Trait<String, Double>>, Collection<Trait<String, Double>>> f1 = TraitResolverUtil
                 .filteringTraits(TraitResolverUtil.removeNans(sumEvaluator));
         final BiFunction<TraitEvaluationContext<String>, Collection<? extends Trait<String, Double>>, Collection<Trait<String, Double>>> f2 = TraitResolverUtil
                 .filteringTraits(TraitResolverUtil.leaveOnlyMaxScoringElements(
-                        sumEvaluator, (x, y) -> x.get().compareTo(y.get()),
-                        "sum->compare"));
+                        sumEvaluator, Comparator.naturalOrder()));
 
         final TraitResolver<String, Double, Collection<Trait<String, Double>>> underTest = new TraitResolver<>(
                 TraitResolverUtil.getSimpleCachingEvaluatorFactory(),
@@ -61,14 +60,13 @@ public class TraitResolverTest {
 
     @Test
     public void testSingleMatch() {
-        final BiFunction<TraitEvaluationContext<String>, Trait<String, Double>, Optional<Double>> sumEvaluator = TraitResolverUtil
+        final BiFunction<TraitEvaluationContext<String>, Trait<String, Double>, Double> sumEvaluator = TraitResolverUtil
                 .getSummarizingDoubleTraitEvaluator();
         final BiFunction<TraitEvaluationContext<String>, Collection<? extends Trait<String, Double>>, Collection<Trait<String, Double>>> f1 = TraitResolverUtil
                 .filteringTraits(TraitResolverUtil.removeNans(sumEvaluator));
         final BiFunction<TraitEvaluationContext<String>, Collection<? extends Trait<String, Double>>, Collection<Trait<String, Double>>> f2 = TraitResolverUtil
                 .filteringTraits(TraitResolverUtil.leaveOnlyMaxScoringElements(
-                        sumEvaluator, (x, y) -> x.get().compareTo(y.get()),
-                        "sum->compare"));
+                        sumEvaluator, Comparator.naturalOrder()));
 
         final TraitResolver<String, Double, Collection<Trait<String, Double>>> underTest = new TraitResolver<>(
                 TraitResolverUtil.getSimpleCachingEvaluatorFactory(),
@@ -81,14 +79,13 @@ public class TraitResolverTest {
 
     @Test
     public void testMultipleMatches() {
-        final BiFunction<TraitEvaluationContext<String>, Trait<String, Double>, Optional<Double>> sumEvaluator = TraitResolverUtil
+        final BiFunction<TraitEvaluationContext<String>, Trait<String, Double>, Double> sumEvaluator = TraitResolverUtil
                 .getSummarizingDoubleTraitEvaluator();
         final BiFunction<TraitEvaluationContext<String>, Collection<? extends Trait<String, Double>>, Collection<Trait<String, Double>>> f1 = TraitResolverUtil
                 .filteringTraits(TraitResolverUtil.removeNans(sumEvaluator));
         final BiFunction<TraitEvaluationContext<String>, Collection<? extends Trait<String, Double>>, Collection<Trait<String, Double>>> f2 = TraitResolverUtil
                 .filteringTraits(TraitResolverUtil.leaveOnlyMaxScoringElements(
-                        sumEvaluator, (x, y) -> x.get().compareTo(y.get()),
-                        "sum->compare"));
+                        sumEvaluator, Comparator.naturalOrder()));
 
         final TraitResolver<String, Double, Collection<Trait<String, Double>>> underTest = new TraitResolver<>(
                 TraitResolverUtil.getSimpleCachingEvaluatorFactory(),
@@ -101,14 +98,13 @@ public class TraitResolverTest {
 
     @Test
     public void testMultipleMatches_SelectsHighestScore() {
-        final BiFunction<TraitEvaluationContext<String>, Trait<String, Double>, Optional<Double>> sumEvaluator = TraitResolverUtil
+        final BiFunction<TraitEvaluationContext<String>, Trait<String, Double>, Double> sumEvaluator = TraitResolverUtil
                 .getSummarizingDoubleTraitEvaluator();
         final BiFunction<TraitEvaluationContext<String>, Collection<? extends Trait<String, Double>>, Collection<Trait<String, Double>>> f1 = TraitResolverUtil
                 .filteringTraits(TraitResolverUtil.removeNans(sumEvaluator));
         final BiFunction<TraitEvaluationContext<String>, Collection<? extends Trait<String, Double>>, Collection<Trait<String, Double>>> f2 = TraitResolverUtil
                 .filteringTraits(TraitResolverUtil.leaveOnlyMaxScoringElements(
-                        sumEvaluator, (x, y) -> x.get().compareTo(y.get()),
-                        "sum->compare"));
+                        sumEvaluator, Comparator.naturalOrder()));
 
         final TraitResolver<String, Double, Collection<Trait<String, Double>>> underTest = new TraitResolver<>(
                 TraitResolverUtil.getSimpleCachingEvaluatorFactory(),
